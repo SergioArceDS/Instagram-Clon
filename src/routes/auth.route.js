@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-    res.send("inicio");
+    res.render("login/index");
 });
 
 router.post("/auth", (req, res) => {
@@ -29,7 +29,7 @@ router.post("/auth", (req, res) => {
 });
 
 router.get("/signup", (req, res) => {
-    res.render("register/index");
+    res.render("register/index", {errors: []});
 });
 
 router.post("/register", upload.single("profile"), registerUser);
