@@ -1,6 +1,7 @@
 const express =  require("express");
-const { registerUser } = require("../controllers/auth.controller");
+const { registerUser, loginUser } = require("../controllers/auth.controller");
 const multer = require("multer");
+const { middlewareAuth, middlewareHome } = require("../middlewares/auth.middleware");
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -16,25 +17,23 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage});
 
-router.get("/", (req, res) => {
+router.get("/", middlewareAuth,(req, res) => {
     res.send("inicio");
 });
 
-router.get("/login", (req, res) => {
-    res.render("login/index");
+router.get("/login", middlewareHome, (req, res) => {
+    res.render("login/index", {errors: []});
 });
 
-router.post("/auth", (req, res) => {
-    res.send("inicio");
-});
+router.post("/auth",middlewareHome, loginUser);
 
-router.get("/signup", (req, res) => {
+router.get("/signup", middlewareHome, (req, res) => {
     res.render("register/index", {errors: []});
 });
 
-router.post("/register", upload.single("profile"), registerUser);
+router.post("/register", middlewareHome, upload.single("profile"), registerUser);
 
-router.get("/signout", (req, res) => {
+router.get("/signout", middlewareHome, (req, res) => {
     res.send("inicio");
 });
 

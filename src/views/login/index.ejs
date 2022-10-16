@@ -15,5 +15,8 @@
         <input type="password" name="password" placeholder="Contraseña">
         <input type="submit" value="Iniciar sesion">
     </form>
+    <%if(errors.length > 0){ %>
+        <h2><%= errors[0] %></h2>
+    <%}%>
 </body>
 </html>

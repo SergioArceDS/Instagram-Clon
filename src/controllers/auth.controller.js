@@ -34,7 +34,28 @@ const registerUser = async(req, res) => {
 }
 
 const loginUser = async(req, res) => {
+    const {username, password} = req.body;
 
+    if(!username || !password){
+        res.render("login/index", {errors: ["Faltan campos por rellenar"]});
+    }
+
+    //Validar si existe el usuario
+
+    const rows = await existeUsuario(username);
+    if(!(rows.length > 0)) {
+        res.render("login/index", {errors: ["No existe el usuario"]});
+    }
+
+    //Validar la contraseña
+    const match = await userModel.compareUserPassword(username, password);
+    
+    if(!match){
+        res.render("login/index", {errors: ["Contraseña incorrecta"]});
+    }
+
+    req.session.user = rows[0];
+    res.redirect("/home");
 }
 
 module.exports = {
