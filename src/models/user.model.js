@@ -1,5 +1,6 @@
 const pool = require("../database/connection");
 const bcrypt = require("bcrypt");
+const { traerLikes, getPostUser } = require("./post.model");
 
 const hashPassword = async(password) => {
     
@@ -14,7 +15,7 @@ const compareUserPassword = async(username, password) => {
     return match;
 }
 
-const existeUsuario = async(username, result) => {
+const existeUsuario = async(username) => {
     const [rows] = await pool.query("SELECT user_id, username FROM users WHERE username = ?", [username]);
     return rows;
 }
@@ -34,6 +35,28 @@ const publish = async(user_id, image, title) => {
     return rows.insertId;
 }
 
+const getUserPosts = async(user_id) => {
+    let posts = [];
+    try {
+        const [rows] = await pool.query("SELECT * FROM posts WHERE posts.user_id = ?", [user_id]);
+        for(let i = 0; i<rows.length; i++){
+            let post = {
+                post_id: rows[i].post_id,
+                user_info: await getPostUser(rows[i].user_id),
+                title: rows[i].title,
+                media: rows[i].media,
+                likes: await traerLikes(rows[i].post_id),
+            }
+
+            posts.push(post);
+        }
+
+        return posts;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     hashPassword,
     guardarUsuario,
@@ -41,4 +64,5 @@ module.exports = {
     getUserById,
     compareUserPassword,
     publish,
+    getUserPosts,
 }

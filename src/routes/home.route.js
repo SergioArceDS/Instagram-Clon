@@ -1,6 +1,7 @@
 const express =  require("express");
 const multer = require("multer");
-const { storePost, showPosts } = require("../controllers/home.controller");
+const { like } = require("../controllers/actiones.controller");
+const { storePost, showPosts, getUserProfile } = require("../controllers/home.controller");
 const { middlewareAuth } = require("../middlewares/auth.middleware");
 const router = express.Router();
 
@@ -20,18 +21,10 @@ const upload = multer({storage: storage});
 
 router.get("/home", middlewareAuth, showPosts);
 
-router.post("/publish", upload.single("image"), storePost);
+router.post("/publish", middlewareAuth, upload.single("image"), storePost);
 
-router.get("/profile", (req, res) => {
-    res.send("inicio");
-});
+router.post("/addLike", middlewareAuth, like);
 
-router.post("/addLike", (req, res) => {
-    res.send("inicio");
-});
-
-router.get("/profile/:username", (req, res) => {
-    res.send("inicio");
-});
+router.get("/profile/:user_id", middlewareAuth, getUserProfile);
 
 module.exports = router;

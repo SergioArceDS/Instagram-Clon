@@ -33,8 +33,10 @@ router.get("/signup", middlewareHome, (req, res) => {
 
 router.post("/register", middlewareHome, upload.single("profile"), registerUser);
 
-router.get("/signout", middlewareHome, (req, res) => {
-    res.send("inicio");
+router.get("/signout", middlewareAuth, (req, res) => {
+    req.session.destroy(function(err) {
+        res.redirect("/login");
+      });
 });
 
 module.exports = router;

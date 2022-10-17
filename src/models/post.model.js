@@ -1,5 +1,4 @@
 const pool = require("../database/connection");
-const {save} = require("../models/like.model");
 
 const traerLikes = async(post_id) => {
     try {
@@ -13,7 +12,7 @@ const traerLikes = async(post_id) => {
 
 const getPostUser = async(user_id) => {
     try {
-        const [rows] = await pool.query("SELECT username, profile FROM users WHERE user_id = ?", [user_id]);
+        const [rows] = await pool.query("SELECT user_id, username, profile FROM users WHERE user_id = ?", [user_id]);
 
         return rows[0];
     } catch (error) {
@@ -43,11 +42,8 @@ const getPosts = async() => {
     }
 }
 
-const addLike = (user) => {
-    save(user.user_id);
-}
-
 module.exports = {
     getPosts,
     traerLikes,
+    getPostUser,
 }
