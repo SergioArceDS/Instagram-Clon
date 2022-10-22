@@ -1,6 +1,7 @@
 const { saveLike, likeExists, putOffLike } = require("../models/like.model");
 
 const like = async(req, res) => {
+
     const {post_id, origin} = req.body;
     const {user_id} = req.session.user;
 

@@ -1,7 +1,7 @@
 const express =  require("express");
 const multer = require("multer");
 const { like } = require("../controllers/actiones.controller");
-const { storePost, showPosts, getUserProfile } = require("../controllers/home.controller");
+const { storePost, showPosts, getUserProfile, returnPosts } = require("../controllers/home.controller");
 const { middlewareAuth } = require("../middlewares/auth.middleware");
 const router = express.Router();
 
@@ -20,6 +20,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage});
 
 router.get("/home", middlewareAuth, showPosts);
+router.get("/getposts", middlewareAuth, returnPosts);
 
 router.post("/publish", middlewareAuth, upload.single("image"), storePost);
 

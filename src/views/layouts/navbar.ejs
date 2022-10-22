@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
       <a class="navbar-brand" href="/home">Instagram</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -10,12 +10,16 @@
             <a class="nav-link active" aria-current="page" href="/home">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/profile/<%= user.user_id %>">Perfil</a>
+            <a class="nav-link active" href="/profile/<%= user.user_id %>">Perfil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/signout">Cerrar sesion</a>
+            <a class="nav-link active" href="/signout">Cerrar sesion</a>
           </li>
         </ul>
+        
+      </div>
+      <div>
+        <img class="rounded-circle" src="http://localhost:5000/img/photos/<%= user.profile %>" width="32" height="32">
       </div>
     </div>
 </nav>

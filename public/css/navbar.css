@@ -1,0 +1,17 @@
+.navbar{
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.navbar-brand{
+    font-weight: 600;
+}
+
+#body{
+    background-color: #f9f9f9;
+}
+
+#btnlikes{
+    font-size: 20px;
+}
+

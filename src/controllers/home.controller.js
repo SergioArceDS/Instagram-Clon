@@ -21,8 +21,12 @@ const storePost = async(req, res) => {
 
 const showPosts = async(req, res) => {
     const posts = await getPosts();
-
     res.render("home/index", {user: req.session.user, posts: posts});
+}
+
+const returnPosts = async(req, res) => {
+    const posts = await getPosts();
+    res.send(posts);
 }
 
 const getUserProfile = async(req, res) => {
@@ -39,4 +43,5 @@ module.exports = {
     storePost,
     showPosts,
     getUserProfile,
+    returnPosts,
 }

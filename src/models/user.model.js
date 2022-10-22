@@ -16,7 +16,7 @@ const compareUserPassword = async(username, password) => {
 }
 
 const existeUsuario = async(username) => {
-    const [rows] = await pool.query("SELECT user_id, username FROM users WHERE username = ?", [username]);
+    const [rows] = await pool.query("SELECT user_id, username, profile FROM users WHERE username = ?", [username]);
     return rows;
 }
 
