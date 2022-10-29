@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchPosts();
-    const fotos = document.querySelectorAll(".rounded-circle")
-    console.log(fotos)
 });
 
 const fetchPosts = async() => {
@@ -32,7 +30,6 @@ const paintPosts = (data) => {
     const postsContainer = document.getElementById("posts-container");
     const templatePost = document.getElementById("template-post").content;
     const fragment = document.createDocumentFragment();
-    console.log(data)
 
     data.forEach((post) => {
         const clone = templatePost.cloneNode(true);

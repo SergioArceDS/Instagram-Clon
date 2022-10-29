@@ -12,6 +12,21 @@
     <%- include('../layouts/navbar') %>
     <div class="container w-50">
         <h2 class="my-5">Perfil de @<%= posts[0]['user_info']['username'] %></h2>
+        
+        <% 
+        function verifyLike(likes, user_id){
+            let ids = [];
+            likes.forEach(like => {
+                ids.push(like['user_id']);
+            });
+        
+            if(ids.includes(parseInt(user_id))){
+                return "❤";
+            }else{
+                return "🤍";
+            } 
+        } 
+        %>
 
         <% posts.forEach(post => { %>
             <div class="card my-4">
@@ -25,8 +40,9 @@
                         <form action="/addLike" method="POST">
                             <input type="hidden" name="post_id" value="<%= post.post_id %>">
                             <input type="hidden" name="origin" value="profile/<%= post['user_info']['user_id'] %>">
-                            <button type="submit" class="btn btn-danger"><%= post['likes'].length %></button>
+                            <button type="submit" id="btnlikes" class="btn btn-likes"><%= verifyLike(post['likes'], user.user_id) %></button>
                         </form>
+                        <div class="likes"><%= post['likes'].length %> Me gusta</div>
                     </div>
                     <p class="card-text"><%= post['title'] %></p>
                 </div>
